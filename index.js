@@ -3,9 +3,11 @@ const { CallbackData } = require('@bot-base/callback-data');
 const storybl = require('./modebl');
 const storylin = require('./modelink');
 const story = require ('./story');
+const storyrate = require ('./story');
 const {DataTypes} = require('sequelize');
 const sequelize = require('./db');
 const { Op } = require("sequelize");
+const storyrate = require('./storyrate');
 require ('dotenv').config();
 const PORT = process.env.PORT || 3000;
 const { BOT_TOKEN} = process.env;
@@ -19,7 +21,7 @@ if (BOT_TOKEN === undefined) {
 
 try {
   sequelize.authenticate()
-  //sequelize.sync({ force: true })
+  sequelize.sync({ force: true })
   console.log('Соединение с БД было успешно установлено.')
 } catch (e) {
   console.log('Невозможно выполнить подключение к БД ', e)
@@ -27,6 +29,7 @@ try {
 
 story.hasMany(storybl);
 story.hasMany(storylin);
+story.hasOne(storyrate);
 
 bot.start ((ctx) => ctx.reply(`Привет, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец!'}`))
 
@@ -1309,7 +1312,20 @@ bot.command ('public', async (ctx) => {
       authId: ctx.message.from.id,
       release: false,
     }
-});
+  });
+  const t = await sequelize.transaction();
+  try{
+    const resul = await sequelize.transaction(async (t) => {
+    const quer = await storyrate.create({
+    rating: 0,
+    view: 0
+  }, { transaction: t });
+})
+await t.commit('commit');
+} catch (error) {
+  await ctx.reply ('⚠Ошибка! Попробуйте сначала.');
+  await t.rollback();
+}
 await ctx.reply('История опубликована')
   }
   }catch(e){

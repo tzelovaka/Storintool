@@ -124,7 +124,7 @@ const menuCreate = new Scenes.WizardScene('sceneCreate', baseEmpty, storyName, s
 const stage = new Scenes.Stage ([menuCreate])
 bot.use(session())
 bot.use(stage.middleware())
-bot.command ('make', async (ctx) => ctx.scene.enter('sceneCreate'))
+bot.command ('create', async (ctx) => ctx.scene.enter('sceneCreate'))
 
 
 
@@ -234,7 +234,7 @@ const menuLink = new Scenes.WizardScene('sceneLink', blockEmpty, blockChoice, bl
 const stagee = new Scenes.Stage ([menuLink])
 bot.use(session())
 bot.use(stagee.middleware())
-bot.command ('link', async (ctx) => ctx.scene.enter('sceneLink'))
+bot.command ('addlink', async (ctx) => ctx.scene.enter('sceneLink'))
 
 
 
@@ -375,7 +375,7 @@ const menuBlock = new Scenes.WizardScene('sceneBlock', linkEmpty, linkChoice, li
 const stager = new Scenes.Stage ([menuBlock])
 bot.use(session())
 bot.use(stager.middleware())
-bot.command ('block', async (ctx) => ctx.scene.enter('sceneBlock'))
+bot.command ('addblock', async (ctx) => ctx.scene.enter('sceneBlock'))
 
 
 
@@ -473,7 +473,7 @@ const playmenuScene = new Scenes.WizardScene('playScene', playScene, playMech)
 const staget = new Scenes.Stage([playmenuScene])
 bot.use(session())
 bot.use(staget.middleware())
-bot.command('play', async (ctx) => ctx.scene.enter('playScene'))
+bot.command('simulate', async (ctx) => ctx.scene.enter('playScene'))
 
 
 

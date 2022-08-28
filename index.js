@@ -1295,6 +1295,25 @@ bot.command ('public', async (ctx) => {
     }
   }
   if (p<1){
+    const t = await sequelize.transaction();
+    try{
+      const row = await story.findOne({
+        where: {
+          authId: ctx.message.from.id,
+          release: false,
+        }})
+      const resul = await sequelize.transaction(async (t) => {
+      const quer = await storyrate.create({
+      rating: 0,
+      view: 0,
+      storyId: row.id,
+    }, { transaction: t });
+  })
+  await t.commit('commit');
+  } catch (error) {
+    await ctx.reply ('⚠Ошибка! Попробуйте сначала.');
+    await t.rollback();
+  }
   await story.update({ release: true }, {
     where: {
       authId: ctx.message.from.id,
@@ -1312,19 +1331,6 @@ bot.command ('public', async (ctx) => {
       release: false,
     }
   });
-  const t = await sequelize.transaction();
-  try{
-    const resul = await sequelize.transaction(async (t) => {
-    const quer = await storyrate.create({
-    rating: 0,
-    view: 0
-  }, { transaction: t });
-})
-await t.commit('commit');
-} catch (error) {
-  await ctx.reply ('⚠Ошибка! Попробуйте сначала.');
-  await t.rollback();
-}
 await ctx.reply('История опубликована')
   }
   }catch(e){

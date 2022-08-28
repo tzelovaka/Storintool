@@ -7,7 +7,6 @@ const storyrate = require ('./storyrate');
 const {DataTypes} = require('sequelize');
 const sequelize = require('./db');
 const { Op } = require("sequelize");
-const storyrate = require('./storyrate');
 require ('dotenv').config();
 const PORT = process.env.PORT || 3000;
 const { BOT_TOKEN} = process.env;

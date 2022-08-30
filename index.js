@@ -3,7 +3,7 @@ const { CallbackData } = require('@bot-base/callback-data');
 const storybl = require('./modebl');
 const storylin = require('./modelink');
 const story = require ('./story');
-const storyrate = require ('./storyrate');
+const like = require ('./like');
 const {DataTypes} = require('sequelize');
 const sequelize = require('./db');
 const { Op } = require("sequelize");
@@ -28,7 +28,7 @@ try {
 
 story.hasMany(storybl);
 story.hasMany(storylin);
-story.hasOne(storyrate);
+story.hasMany(like)
 
 bot.start ((ctx) => ctx.reply(`Привет, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец!'}`))
 
@@ -1295,26 +1295,17 @@ bot.command ('public', async (ctx) => {
     }
   }
   if (p<1){
-    const t = await sequelize.transaction();
     try{
       const row = await story.findOne({
         where: {
           authId: ctx.message.from.id,
           release: false,
         }})
-      const resul = await sequelize.transaction(async (t) => {
-      const quer = await storyrate.create({
-      rating: 0,
-      view: 0,
-      storyId: row.id,
-    }, { transaction: t });
-  })
-  await t.commit('commit');
-  } catch (error) {
-    await ctx.reply ('⚠Ошибка! Попробуйте сначала.');
-    await t.rollback();
-  }
-  await story.update({ release: true }, {
+  await story.update(
+    { 
+      release: true, 
+      views: 0,
+    }, {
     where: {
       authId: ctx.message.from.id,
       release: false,
@@ -1331,6 +1322,9 @@ bot.command ('public', async (ctx) => {
       release: false,
     }
   });
+  } catch (e) {
+    await ctx.reply ('⚠Ошибка! Попробуйте сначала.');
+  }
 await ctx.reply('История опубликована')
   }
   }catch(e){

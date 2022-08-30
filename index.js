@@ -20,7 +20,7 @@ if (BOT_TOKEN === undefined) {
 
 try {
   sequelize.authenticate()
-  sequelize.sync({ force: true })
+  //sequelize.sync({ force: true })
   console.log('Соединение с БД было успешно установлено.')
 } catch (e) {
   console.log('Невозможно выполнить подключение к БД ', e)
@@ -1290,7 +1290,7 @@ bot.command ('public', async (ctx) => {
     if (block === null){
       await ctx.reply('⚠Ошибка! Не все сюжетные ветви кончаются блоками!')
       p = p + 1;
-      break;
+      return ctx.scene.leave()
     }
   }
   if (p<1){

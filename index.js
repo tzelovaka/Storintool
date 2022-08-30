@@ -28,7 +28,6 @@ try {
 
 story.hasMany(storybl);
 story.hasMany(storylin);
-story.hasMany(like)
 
 bot.start ((ctx) => ctx.reply(`Привет, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец!'}`))
 

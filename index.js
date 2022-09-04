@@ -29,7 +29,7 @@ try {
 story.hasMany(storybl);
 story.hasMany(storylin);
 
-bot.start ((ctx) => ctx.reply(`Привет, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец!'}`))
+bot.start ((ctx) => ctx.reply(`Здравствуйте, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец'}!`))
 
 
 const baseEmpty = new Composer()
@@ -175,7 +175,7 @@ blockChoice.on ('callback_query', async (ctx)=>{
   try{
   const { id, linid, storyid, action} = blockBtn.parse(ctx.callbackQuery.data);
   if (action != 'blockchoice'){
-    await ctx.answerCbQuery('Ошибка! Начните заново⚠');
+    await ctx.answerCbQuery('⚠Ошибка! Начните заново');
     return ctx.scene.leave()
   }
   const row = await storybl.findOne({where: {
@@ -186,7 +186,7 @@ blockChoice.on ('callback_query', async (ctx)=>{
     release: false,
   }});
   if (row === null){
-    await ctx.answerCbQuery('Ошибка! Начните заново⚠');
+    await ctx.answerCbQuery('⚠Ошибка! Начните заново');
     return ctx.scene.leave()
   }
   ctx.wizard.state.data.blockChoice = id;

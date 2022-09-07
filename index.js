@@ -20,7 +20,7 @@ if (BOT_TOKEN === undefined) {
 
 try {
   sequelize.authenticate()
-  //sequelize.sync({ force: true })
+  sequelize.sync({ force: true })
   console.log('Соединение с БД было успешно установлено.')
 } catch (e) {
   console.log('Невозможно выполнить подключение к БД ', e)

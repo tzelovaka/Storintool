@@ -148,7 +148,7 @@ try{
     release: false
   }});
   if (count <= 0) {
-    await ctx.reply ('Требуется создать историю! 👉 /make');
+    await ctx.reply ('Требуется создать историю! 👉 /create');
     return ctx.scene.leave()
   }
   let x = count - 1;
@@ -259,7 +259,7 @@ linkEmpty.on ('text', async (ctx)=>{
     release: false
   }});
   if (row === null) {
-    await ctx.reply ('Требуется создать создать историю! 👉 /make');
+    await ctx.reply ('Требуется создать создать историю! 👉 /create');
     return ctx.scene.leave()
   }
   const { count, rows } = await storylin.findAndCountAll({where: {
@@ -1075,7 +1075,7 @@ switch (ctx.wizard.state.data.sceneVisualizationChoice) {
       release: false
     }});
     if (count <= 0) {
-      await ctx.answerCbQuery('Требуется создать историю! 👉 /make');
+      await ctx.answerCbQuery('Требуется создать историю! 👉 /create');
       return ctx.scene.leave()
     }
     let x = count - 1;
@@ -1133,7 +1133,7 @@ switch (ctx.wizard.state.data.sceneVisualizationChoice) {
         release: false
       }});
       if (row === null) {
-        await ctx.answerCbQuery('Требуется создать историю! 👉 /make');
+        await ctx.answerCbQuery('Требуется создать историю! 👉 /create');
         return ctx.scene.leave()
       }
       await ctx.reply('Вставьте ссылку на картинку.')

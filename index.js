@@ -268,7 +268,7 @@ linkEmpty.on ('text', async (ctx)=>{
     storyId: row.id
   }});
   if (count < 1 || rows === null) {
-    await ctx.reply ('Требуется создать ссылку! 👉 /link');
+    await ctx.reply ('Требуется создать ссылку! 👉 /addlink');
     return ctx.scene.leave()
   }
   await ctx.reply ('Выберите ссылку из доступных:');
@@ -869,7 +869,7 @@ const editChoiceTrue = new Composer()
         authId: ctx.callbackQuery.from.id,
       release: false}});
       if (count < 1) {
-        await ctx.answerCbQuery('Требуется больше ссылок! 👉 /link');
+        await ctx.answerCbQuery('Требуется больше ссылок! 👉 /addlink');
         return ctx.scene.leave()
       }
       await ctx.reply('Выберите ссылку, которую требуется отредактровать:');
@@ -1104,7 +1104,7 @@ switch (ctx.wizard.state.data.sceneVisualizationChoice) {
       release: false,
     }});
     if (count <= 0) {
-      await ctx.answerCbQuery('Для выполнения требуется минимум одна ссылка! 👉 /link');
+      await ctx.answerCbQuery('Для выполнения требуется минимум одна ссылка! 👉 /addlink');
       return ctx.scene.leave()
     }
     let y = count - 1;

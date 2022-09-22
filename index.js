@@ -1,6 +1,6 @@
 const { Telegraf, Scenes, Composer, session, Markup} = require('telegraf');
 var http = require('http');
-var fs = require('fs');
+var fs = require('fs-js');
 const { CallbackData } = require('@bot-base/callback-data');
 const storybl = require('./modebl');
 const storylin = require('./modelink');

@@ -1,4 +1,6 @@
 const { Telegraf, Scenes, Composer, session, Markup} = require('telegraf');
+var http = require('http');
+var fs = require('fs');
 const { CallbackData } = require('@bot-base/callback-data');
 const storybl = require('./modebl');
 const storylin = require('./modelink');
@@ -1251,6 +1253,17 @@ await ctx.reply ('Символ-кнопка успешно обновлён.')
 const setStoryPic = new Composer()
 setStoryPic.on ('text', async (ctx)=>{
 try{
+try{
+var file = fs.createWriteStream(`${ctx.message.text}.png`);
+var request = http.get(`${ctx.message.text}`, function(response) {
+  response.pipe(file);
+});
+fs.unlink(`${ctx.message.text}.png`);
+} catch (e){
+  await ctx.reply('⚠Ошибка!')
+  return ctx.scene.leave()
+}
+fs.unlink(`${ctx.message.text}.jpg`);
 ctx.wizard.state.data.setStoryPic = ctx.message.text;
 await story.update({ pic: `${ctx.wizard.state.data.setStoryPic}` }, {
   where: {
@@ -1259,7 +1272,6 @@ await story.update({ pic: `${ctx.wizard.state.data.setStoryPic}` }, {
   }
 });
 } catch (e){
-  console.log(e);
   await ctx.reply('⚠Ошибка!')
   return ctx.scene.leave()
 }

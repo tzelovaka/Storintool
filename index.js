@@ -1270,7 +1270,7 @@ try{
       authId: ctx.message.from.id,
       release: false,
     }})
-let testpost = await ctx.replyWithPhoto({ url: `${ctx.wizard.state.data.setStoryPic}` }, { caption: `${row.desc}`});
+let testpost = await ctx.replyWithPhoto({ url: `${ctx.wizard.state.data.setStoryPic}` }, { caption: `${row.name}`});
 let res = await ctx.telegram.deleteMessage(ctx.chat.id, testpost.message_id);
 } catch(e){
   await ctx.reply('⚠Ошибка!')

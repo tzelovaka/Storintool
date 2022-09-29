@@ -1264,6 +1264,18 @@ const setStoryPic = new Composer()
 setStoryPic.on ('text', async (ctx)=>{
 try{
 ctx.wizard.state.data.setStoryPic = ctx.message.text;
+try{
+  const row = await story.findOne({
+    where: {
+      authId: ctx.message.from.id,
+      release: false,
+    }})
+let testpost = await ctx.replyWithPhoto({ url: `${ctx.wizard.state.data.setStoryPic}` }, { caption: `${row.desc}`});
+let res = await ctx.telegram.deleteMessage(ctx.chat.id, testpost.message_id);
+} catch(e){
+  await ctx.reply('⚠Ошибка!')
+  return ctx.scene.leave()
+}
 await story.update({ pic: `${ctx.wizard.state.data.setStoryPic}` }, {
   where: {
     authId: ctx.message.from.id,

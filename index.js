@@ -1184,6 +1184,18 @@ const setBlockPicTrue = new Composer()
 setBlockPicTrue.on ('text', async (ctx)=>{
 try{
 ctx.wizard.state.data.setBlockPicTrue = ctx.message.text;
+try{
+ const row = await storybl.findOne ({where:{
+  id: `${ctx.wizard.state.data.setBlockPic}`,
+  authId: ctx.message.from.id,
+  release: false,
+}})
+let testpost = await ctx.replyWithPhoto({ url: `${ctx.wizard.state.data.setBlockPicTrue}` }, { caption: `${row.bl}`});
+let res = await ctx.telegram.deleteMessage(ctx.chat.id, testpost.message_id);
+} catch(e){
+  await ctx.reply('⚠Ошибка!')
+  return ctx.scene.leave()
+}
 await storybl.update({ pic: `${ctx.wizard.state.data.setBlockPicTrue}` }, {
   where: {
     id: `${ctx.wizard.state.data.setBlockPic}`,

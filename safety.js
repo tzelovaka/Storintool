@@ -28,6 +28,11 @@ module.exports = async function safety(authId, lmt, isbot) {
                 authId: authId
             }})
       }else{//если юзер есть в таблице, то проверяем время его последнего сообщения с нынешним, если разница меньше 5 сек, то баним его на 30 сек
+        const row = await user.findOne({ //ищем юзера в таблице
+            where:{
+            authId: authId
+            }
+          })
         let x = row.last_message_time - lmt;
         if (x<5){
             const row = await user.update({

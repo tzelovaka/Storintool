@@ -31,11 +31,13 @@ try {
 story.hasMany(storybl);
 story.hasMany(storylin);
 
-bot.start ((ctx) =>
+bot.start (async (ctx) =>
   /*if (ctx.message.from.is_bot = true){
     await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
   }*/
-  ctx.reply(`Здравствуйте, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец'}!`))
+  safety()
+  //ctx.reply(`Здравствуйте, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец'}!`)
+  )
 
 
 const baseEmpty = new Composer()

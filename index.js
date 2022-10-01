@@ -35,11 +35,9 @@ bot.start ((ctx) =>
   /*if (ctx.message.from.is_bot = true){
     await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
   }*/
+  safety(),
   ctx.reply(`Здравствуйте, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец'}!`)
   )
-  bot.on('message', (ctx) => {
-    safety()
-  })
 
 const baseEmpty = new Composer()
 baseEmpty.on ('text', async (ctx)=>{

@@ -18,19 +18,24 @@ module.exports = async function safety(authId, lmt, isbot) {
             authId: authId,
             last_message_time: lmt,
         })}
-        console.log(isbot);
-        /*if (ctx.message.from.is_bot === true){
+        if (isbot === true){
             //ставим галочку в таблице, что это бот и баним его
             const row = await user.update({
                 isbot: true,
                 ban: true
             }, {
                 where: {
-                authId: `${ctx.message.from.id}`
+                authId: authId
+            }})
+      }else{//если юзер есть в таблице, то проверяем время его последнего сообщения с нынешним, если разница меньше 5 сек, то баним его на 30 сек
+        let x = row.last_message_time - lmt;
+        if (x<5){
+            const row = await user.update({
+                ban: true
+            }, {
+                where: {
+                authId: authId
             }})
         }
-      }else{//если юзер есть в таблице, то проверяем время его последнего сообщения с нынешним, если разница меньше 5 сек, то баним его на 30 сек
-        let x = row.last_message_time - ctx.message.date;
-
-      }*/
-}
+      }
+    }

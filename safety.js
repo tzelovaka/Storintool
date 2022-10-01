@@ -14,10 +14,11 @@ module.exports = async function safety(authId, lmt, isbot) {
         }
       })
       if (row === null){ //если не находим его, то регистрируем
+        
         const row = await user.create({
             authId: authId,
             last_message_time: lmt,
-        })}
+        })
         if (isbot === true){
             //ставим галочку в таблице, что это бот и баним его
             const row = await user.update({
@@ -27,14 +28,14 @@ module.exports = async function safety(authId, lmt, isbot) {
                 where: {
                 authId: authId
             }})
-      }else{//если юзер есть в таблице, то проверяем время его последнего сообщения с нынешним, если разница меньше 5 сек, то баним его на 30 сек
+      }
+    }else{//если юзер есть в таблице, то проверяем время его последнего сообщения с нынешним, если разница меньше 5 сек, то баним его на 30 сек
         const row = await user.findOne({ //ищем юзера в таблице
             where:{
             authId: authId
             }
           })
         let x = lmt - row.last_message_time;
-        console.log(row.last_message_time, lmt, x);
         if (x<5){
             const row = await user.update({
                 ban: true
@@ -43,5 +44,11 @@ module.exports = async function safety(authId, lmt, isbot) {
                 authId: authId
             }})
         }
+        const rov = await user.update({
+            last_message_time: lmt
+        }, {
+            where: {
+            authId: authId
+        }})
       }
     }

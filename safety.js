@@ -7,5 +7,5 @@ const { BOT_TOKEN} = process.env;
 const bot = new Telegraf(BOT_TOKEN);
 
 module.exports = function safety() {
-    console.log(SAFETY);
+    console.log('SAFETY');
 }

@@ -4,6 +4,8 @@ const storybl = require('./modebl');
 const storylin = require('./modelink');
 const story = require ('./story');
 const like = require ('./like');
+const user = require ('./user');
+const safety = require ('./safety');
 const {DataTypes} = require('sequelize');
 const sequelize = require('./db');
 const { Op } = require("sequelize");
@@ -20,7 +22,7 @@ if (BOT_TOKEN === undefined) {
 
 try {
   sequelize.authenticate()
-  //sequelize.sync({ force: true })
+  sequelize.sync({ force: true })
   console.log('Соединение с БД было успешно установлено.')
 } catch (e) {
   console.log('Невозможно выполнить подключение к БД ', e)

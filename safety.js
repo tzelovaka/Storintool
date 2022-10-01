@@ -35,11 +35,8 @@ module.exports = async function safety(authId, lmt, isbot) {
             authId: authId
             }
           })
-        if (row.ban === true){
-            console.log('BAN');
-        }
         let x = lmt - row.last_message_time;
-        if (x<5){
+        if (x<2){
             const row = await user.update({
                 ban: true
             }, {

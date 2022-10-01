@@ -36,7 +36,7 @@ module.exports = async function safety(authId, lmt, isbot) {
             }
           })
         if (row.ban === true){
-            return false
+            console.log('BAN');
         }
         let x = lmt - row.last_message_time;
         if (x<5){

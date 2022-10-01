@@ -31,11 +31,14 @@ try {
 story.hasMany(storybl);
 story.hasMany(storylin);
 
+bot.use(async (ctx, next) => {
+  await safety(ctx.message.from.id, ctx.message.date, ctx.message.from.is_bot);
+})
+
 bot.start (async (ctx) =>{
   /*if (ctx.message.from.is_bot = true){
     await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
   }*/
-  safety(ctx.message.from.id, ctx.message.date, ctx.message.from.is_bot);
   await ctx.reply(`Здравствуйте, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец'}!`)
 }
   )

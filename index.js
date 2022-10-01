@@ -37,7 +37,7 @@ bot.start ((ctx) =>
   }*/
   ctx.reply(`Здравствуйте, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец'}!`)
   )
-  bot.on('text', (ctx) => {
+  bot.on('message', (ctx) => {
     safety()
   })
 

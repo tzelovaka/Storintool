@@ -33,6 +33,7 @@ story.hasMany(storylin);
 
 bot.use(async (ctx, next) => {
   await safety(ctx.message.from.id, ctx.message.date, ctx.message.from.is_bot);
+  await next()
 })
 
 bot.start (async (ctx) =>{

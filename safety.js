@@ -33,7 +33,7 @@ module.exports = async function safety(authId, lmt, isbot) {
             authId: authId
             }
           })
-        let x = row.last_message_time - lmt;
+        let x = lmt - row.last_message_time;
         console.log(row.last_message_time, lmt, x);
         if (x<5){
             const row = await user.update({

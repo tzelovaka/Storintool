@@ -7,17 +7,18 @@ const PORT = process.env.PORT || 3000;
 const { BOT_TOKEN} = process.env;
 const bot = new Telegraf(BOT_TOKEN);
 
-module.exports = async function safety() {
+module.exports = async function safety(authId, lmt, isbot) {
     const row = await user.findOne({ //ищем юзера в таблице
         where:{
-        authId: `${ctx.message.from.id}`
+        authId: authId
         }
       })
       if (row === null){ //если не находим его, то регистрируем
         const row = await user.create({
-            authId: `${ctx.message.from.id}`,
-            last_message_time: `${ctx.message.date}`,
+            authId: authId,
+            last_message_time: lmt,
         })}
+        console.log(isbot);
         /*if (ctx.message.from.is_bot === true){
             //ставим галочку в таблице, что это бот и баним его
             const row = await user.update({

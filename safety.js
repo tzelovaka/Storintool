@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 const { BOT_TOKEN} = process.env;
 const bot = new Telegraf(BOT_TOKEN);
 
-bot.help ((ctx) =>
+const safety = bot.help ((ctx) =>
   /*if (ctx.message.from.is_bot = true){
     await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
   }*/

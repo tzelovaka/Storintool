@@ -3,8 +3,8 @@ const {DataTypes} = require('sequelize')
 
 const user = sequelize.define ('user', {
     authId: {type: DataTypes.BIGINT, unique: false},
-    isbot: {type: DataTypes.BOOLEAN},
     last_message_time: {type: DataTypes.TIME},
+    isbot: {type: DataTypes.BOOLEAN},
     ban: {type: DataTypes.BOOLEAN}
 })
 

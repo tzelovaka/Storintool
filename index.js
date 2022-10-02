@@ -46,7 +46,7 @@ bot.on('text', async (ctx, next) => {
 bot.on('callback_query', async (ctx, next) => {
   await safety(ctx.callbackQuery.from.id, ctx.callbackQuery.date, ctx.callbackQuery.from.is_bot);
   const row = await user.findOne({where:{
-    authId: ctx.message.from.id
+    authId: ctx.callbackQuery.from.id
   }})
   if (row.ban == true){
     await ctx.reply ('Вы забанены!')

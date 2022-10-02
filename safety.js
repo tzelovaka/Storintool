@@ -8,19 +8,17 @@ const { BOT_TOKEN} = process.env;
 const bot = new Telegraf(BOT_TOKEN);
 
 module.exports = async function safety(authId, lmt, isbot) {
-    const row = await user.findOne({ //ищем юзера в таблице
+    const row = await user.findOne({ 
         where:{
         authId: authId
         }
       })
-      if (row === null){ //если не находим его, то регистрируем
-        
+      if (row === null){
         const row = await user.create({
             authId: authId,
             last_message_time: lmt,
         })
         if (isbot === true){
-            //ставим галочку в таблице, что это бот и баним его
             const row = await user.update({
                 isbot: true,
                 ban: true
@@ -29,26 +27,43 @@ module.exports = async function safety(authId, lmt, isbot) {
                 authId: authId
             }})
       }
-    }else{//если юзер есть в таблице, то проверяем время его последнего сообщения с нынешним, если разница меньше 5 сек, то баним его на 30 сек
-        const row = await user.findOne({ //ищем юзера в таблице
+    }else{
+        const row = await user.findOne({
             where:{
             authId: authId
             }
           })
-        let x = lmt - row.last_message_time;
-        if (x<2){
+          if (row.isbot === true){
             const row = await user.update({
+                isbot: true,
                 ban: true
             }, {
                 where: {
                 authId: authId
             }})
-        }
+      }
+      await user.increment({ count: 1}, {
+        where: {
+            authId: authId
+        }});
+        if (row.count == 5){
+        let x = lmt - row.last_message_time;
+        if (x <= 9){
+        const row = await user.update({
+            last_message_time: lmt,
+            ban: true
+        }, {
+            where: {
+            authId: authId
+        }})
+    }else{
         const rov = await user.update({
             last_message_time: lmt
         }, {
             where: {
             authId: authId
         }})
+    }
       }
     }
+}

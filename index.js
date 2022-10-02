@@ -147,14 +147,13 @@ await t.commit('commit');
 
 const f = await sequelize.transaction();
 try{
-  const res = await sequelize.transaction(async (f) => {
   const { count, rows } = await story.findAndCountAll({where: {
-  authId: ctx.message.from.id,
-  release: false
-}});
-
-  let c = count - 1;
-
+    authId: ctx.message.from.id,
+    release: false
+  }});
+  
+    let c = count - 1;
+  const res = await sequelize.transaction(async (f) => {
   const quer = await storybl.create({
     linid: 0,
     bl: `${ctx.wizard.state.data.baseSave}`,

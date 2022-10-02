@@ -144,29 +144,26 @@ baseSave.on ('text', async (ctx)=>{
   return ctx.scene.leave()
 }
 await t.commit('commit');
-
+const f = await sequelize.transaction();
 try{
   const { count, rows } = await story.findAndCountAll({where: {
     authId: ctx.message.from.id,
     release: false
   }});
     let c = count - 1;
-
-  const res = await sequelize.transaction(async (t) => {
   const quer = await storybl.create({
     linid: 0,
     bl: `${ctx.wizard.state.data.baseSave}`,
     authId: ctx.message.from.id,
     storyId: rows[c].id,
     release: false
-}, { transaction: t });
-  })
+}, { transaction: f });
 }catch (e) {
-  await t.rollback();
+  await f.rollback();
   await ctx.reply ('⚠Ошибка!');
   return ctx.scene.leave()
 }
-await t.commit('commit');
+await f.commit('commit');
 
   await ctx.reply ('Вы успешно добавили первый блок своей будущей истории.');
   return ctx.scene.leave()

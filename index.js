@@ -67,8 +67,8 @@ bot.start (async (ctx) =>{
   await ctx.reply(`Здравствуйте, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец'}!`)
   }
   else{
-    await ctx.reply(`
-    /create - создание истории;
+    await ctx.reply(
+    `/create - создание истории;
     /addlink - добавление очередной ссылки;
     /addblock - добавление очередного блока;
     /simulate - симуляция истории;

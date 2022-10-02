@@ -128,7 +128,6 @@ const baseSave = new Composer()
 baseSave.on ('text', async (ctx)=>{
   ctx.wizard.state.data.baseSave = ctx.message.text;
   const t = await sequelize.transaction();
-
   try{
   const res = await sequelize.transaction(async (t) => {
     const query = await story.create({
@@ -143,27 +142,27 @@ baseSave.on ('text', async (ctx)=>{
   await ctx.reply ('⚠Ошибка!');
   return ctx.scene.leave()
 }
-await t.commit('commit');
 const f = await sequelize.transaction();
 try{
-  const { count, rows } = await story.findAndCountAll({where: {
-    authId: ctx.message.from.id,
-    release: false
-  }});
+    const { count, rows } = await story.findAndCountAll({where: {
+      authId: ctx.message.from.id,
+      release: false}});
     let c = count - 1;
-  const quer = await storybl.create({
+    //const t = await sequelize.transaction();
+    const result = await sequelize.transaction(async (f) => {
+    const query = await storybl.create({
     linid: 0,
     bl: `${ctx.wizard.state.data.baseSave}`,
     authId: ctx.message.from.id,
     storyId: rows[c].id,
     release: false
-}, { transaction: f });
-}catch (e) {
+  }, { transaction: f });
+})
+}catch(e){
   await f.rollback();
   await ctx.reply ('⚠Ошибка!');
   return ctx.scene.leave()
 }
-await f.commit('commit');
 
   await ctx.reply ('Вы успешно добавили первый блок своей будущей истории.');
   return ctx.scene.leave()

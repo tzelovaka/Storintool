@@ -22,7 +22,7 @@ if (BOT_TOKEN === undefined) {
 
 try {
   sequelize.authenticate()
-  sequelize.sync({ force: true })
+  //sequelize.sync({ force: true })
   console.log('Соединение с БД было успешно установлено.')
 } catch (e) {
   console.log('Невозможно выполнить подключение к БД ', e)
@@ -63,7 +63,7 @@ bot.start (async (ctx) =>{
   const row = await user.findOne({where:{
     authId: ctx.message.from.id
   }})
-  if (row === null){
+  if (row == null){
   await ctx.reply(`Здравствуйте, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец'}!`)
   }
   else{

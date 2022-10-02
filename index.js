@@ -22,7 +22,7 @@ if (BOT_TOKEN === undefined) {
 
 try {
   sequelize.authenticate()
-  sequelize.sync({ force: true })
+  //sequelize.sync({ force: true })
   console.log('Соединение с БД было успешно установлено.')
 } catch (e) {
   console.log('Невозможно выполнить подключение к БД ', e)
@@ -67,14 +67,15 @@ bot.start (async (ctx) =>{
   await ctx.reply(`Здравствуйте, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец'}!`)
   }
   else{
-    await ctx.reply(`/create - создание истории
-    /addlink - добавление очередной ссылки
-    /addblock - добавление очередного блока
-    /simulate - симуляция истории
-    /edit - редактирование текста
-    /visualization - добавление картинок или эмодзи-кнопок
-    /delete - удаление истории, сюжетной ветви или картинок
-    /public - публикация истории`)
+    await ctx.reply(`
+    /create - создание истории;
+    /addlink - добавление очередной ссылки;
+    /addblock - добавление очередного блока;
+    /simulate - симуляция истории;
+    /edit - редактирование текста;
+    /visualization - добавление картинок или эмодзи-кнопок;
+    /delete - удаление истории, сюжетной ветви или картинок;
+    /public - публикация истории.`)
   }
 }
   )
@@ -138,13 +139,13 @@ baseSave.on ('text', async (ctx)=>{
     release: false
   }, { transaction: t });
 
-  const { count, rows } = await story.findAndCountAll({where: {
+  /*const { count, rows } = await story.findAndCountAll({where: {
   authId: ctx.message.from.id,
   release: false
 }});
 
   let c = count - 1;
-
+*/
   const quer = await storybl.create({
     linid: 0,
     bl: `${ctx.wizard.state.data.baseSave}`,

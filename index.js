@@ -22,7 +22,7 @@ if (BOT_TOKEN === undefined) {
 
 try {
   sequelize.authenticate()
-  //sequelize.sync({ force: true })
+  sequelize.sync({ force: true })
   console.log('Соединение с БД было успешно установлено.')
 } catch (e) {
   console.log('Невозможно выполнить подключение к БД ', e)
@@ -127,6 +127,7 @@ storyDesc.on ('text', async (ctx)=>{
 const baseSave = new Composer()
 baseSave.on ('text', async (ctx)=>{
   ctx.wizard.state.data.baseSave = ctx.message.text;
+
   const t = await sequelize.transaction();
   try{
   const res = await sequelize.transaction(async (t) => {
@@ -148,7 +149,7 @@ try{
       authId: ctx.message.from.id,
       release: false}});
     let c = count - 1;
-    //const t = await sequelize.transaction();
+    const t = await sequelize.transaction();
     const result = await sequelize.transaction(async (f) => {
     const query = await storybl.create({
     linid: 0,

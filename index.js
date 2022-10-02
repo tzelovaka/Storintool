@@ -31,8 +31,20 @@ try {
 story.hasMany(storybl);
 story.hasMany(storylin);
 
-bot.use(async (ctx, next) => {
+bot.on('text', async (ctx, next) => {
   await safety(ctx.message.from.id, ctx.message.date, ctx.message.from.is_bot);
+  const row = await user.findOne({where:{
+    authId: ctx.message.from.id
+  }})
+  if (row.ban == true){
+    await ctx.reply ('Вы забанены!')
+  }
+  else{
+    await next()
+  }
+})
+bot.on('callback_query', async (ctx, next) => {
+  await safety(ctx.callbackQuery.from.id, ctx.callbackQuery.date, ctx.callbackQuery.from.is_bot);
   const row = await user.findOne({where:{
     authId: ctx.message.from.id
   }})
@@ -48,7 +60,22 @@ bot.start (async (ctx) =>{
   /*if (ctx.message.from.is_bot = true){
     await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
   }*/
+  const row = await user.findOne({where:{
+    authId: ctx.message.from.id
+  }})
+  if (row === null){
   await ctx.reply(`Здравствуйте, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец'}!`)
+  }
+  else{
+    await ctx.reply(`/create - создание истории
+    /addlink - добавление очередной ссылки
+    /addblock - добавление очередного блока
+    /simulate - симуляция истории
+    /edit - редактирование текста
+    /visualization - добавление картинок или эмодзи-кнопок
+    /delete - удаление истории, сюжетной ветви или картинок
+    /public - публикация истории`)
+  }
 }
   )
 
@@ -100,8 +127,9 @@ const baseSave = new Composer()
 baseSave.on ('text', async (ctx)=>{
   ctx.wizard.state.data.baseSave = ctx.message.text;
   const t = await sequelize.transaction();
+
   try{
-  const res = await sequelize.transaction(async (t) => {
+  //const res = await sequelize.transaction(async (t) => {
 
     const query = await story.create({
     name: `${ctx.wizard.state.data.storyName}`,
@@ -124,7 +152,7 @@ baseSave.on ('text', async (ctx)=>{
     storyId: rows[c].id,
     release: false
 }, { transaction: t });
-})
+//})
 } catch (e) {
   await t.rollback();
   await ctx.reply ('⚠Ошибка!');

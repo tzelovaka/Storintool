@@ -32,6 +32,7 @@ module.exports = async function safety(authId, lmt, isbot) {
             }})
       }
     }else{
+        if (row.ban === false){
         const row = await user.findOne({
             where:{
             authId: authId
@@ -63,5 +64,6 @@ module.exports = async function safety(authId, lmt, isbot) {
         }})
     }
       }
+    }
     }
 }

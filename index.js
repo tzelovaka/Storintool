@@ -165,7 +165,7 @@ try{*/
   return ctx.scene.leave()
 }
 
-  await ctx.reply ('Вы успешно добавили первый блок своей будущей истории.');
+  await ctx.reply ('Вы успешно добавили первый название, краткое описание и блок своей будущей истории.');
   return ctx.scene.leave()
 })
 const menuCreate = new Scenes.WizardScene('sceneCreate', baseEmpty, storyName, storyDesc, baseSave)

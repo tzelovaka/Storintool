@@ -45,9 +45,9 @@ module.exports = async function safety(authId, lmt, isbot) {
             authId: authId
         }});
 
-        if (row.count >= times){
+        if (row.count >= `${times}`){
         let x = lmt - row.last_message_time;
-        if (x <= timeout){
+        if (x <= `${timeout}`){
         const row = await user.update({
             last_message_time: lmt,
             ban: true

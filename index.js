@@ -60,13 +60,6 @@ bot.start (async (ctx) =>{
   /*if (ctx.message.from.is_bot = true){
     await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
   }*/
-  const row = await user.findOne({where:{
-    authId: ctx.message.from.id
-  }})
-  if (row == null){
-  await ctx.reply(`Здравствуйте, ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец'}!`)
-  }
-  else{
     await ctx.reply(
     `/create - создание истории;
 /addlink - добавление очередной ссылки;
@@ -77,7 +70,6 @@ bot.start (async (ctx) =>{
 /delete - удаление истории, сюжетной ветви или картинок;
 /public - публикация истории.`)
   }
-}
   )
 
 const baseEmpty = new Composer()

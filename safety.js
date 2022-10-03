@@ -5,8 +5,6 @@ const user = require ('./user');
 require ('dotenv').config();
 const PORT = process.env.PORT || 3000;
 const { BOT_TOKEN} = process.env;
-const timeout = process.env;
-const times = process.env;
 const bot = new Telegraf(BOT_TOKEN);
 
 module.exports = async function safety(authId, lmt, isbot) {
@@ -45,9 +43,9 @@ module.exports = async function safety(authId, lmt, isbot) {
             authId: authId
         }});
 
-        if (row.count >= `${times}`){
+        if (row.count >= 12){
         let x = lmt - row.last_message_time;
-        if (x <= `${timeout}`){
+        if (x <= 9){
         const row = await user.update({
             last_message_time: lmt,
             ban: true

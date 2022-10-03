@@ -44,6 +44,8 @@ module.exports = async function safety(authId, lmt, isbot) {
         }});
 
         if (row.count >= 12){
+            console.log(lmt);
+            console.log(row.last_message_time);
         let x = lmt - row.last_message_time;
         if (x <= 9){
         const row = await user.update({

@@ -43,7 +43,7 @@ module.exports = async function safety(authId, lmt, isbot) {
             authId: authId
         }});
 
-        if (row.count >= 5){
+        if (row.count >= 12){
         
         let x = lmt - row.last_message_time;
         if (x <= 9){

@@ -145,6 +145,7 @@ try{*/
     //const result = await sequelize.transaction(async (f) => {
     const quer = await storybl.create({
     linid: 0,
+    pic: null,
     bl: `${ctx.wizard.state.data.baseSave}`,
     authId: ctx.message.from.id,
     storyId: rows[c].id,

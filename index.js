@@ -1364,6 +1364,7 @@ bot.command ('public', async (ctx) => {
           authId: ctx.message.from.id,
           release: false,
         }})
+      if (row != null){
   await story.update(
     { 
       release: true, 
@@ -1385,6 +1386,9 @@ bot.command ('public', async (ctx) => {
       release: false,
     }
   });
+} else{
+  await ctx.reply ('Для этой функции требуется создать историю! 👉 /create')
+}
   } catch (e) {
     await ctx.reply ('⚠Ошибка! Попробуйте сначала.');
   }

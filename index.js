@@ -1,5 +1,4 @@
 const { Telegraf, Scenes, Composer, session, Markup} = require('telegraf');
-const TelegramBot = require('node-telegram-bot-api');
 const { CallbackData } = require('@bot-base/callback-data');
 const storybl = require('./modebl');
 const storylin = require('./modelink');
@@ -74,16 +73,16 @@ bot.start (async (ctx) =>{
   }
   )
 
-  bot.command('scheme', async (ctx) => {
-    await ctx.reply('Смотреть...', {reply_markup: {
-      inline_keyboard:
-      [
+  /*bot.command('scheme', async (ctx) => {
+    await ctx.reply('Смотреть...', {
+      reply_markup: {
+      inline_keyboard: [
         [{text: '👆', web_app: {url: webAppUrl}}]
       ]
     }
   }
     )
-  })
+  })*/
 
 const baseEmpty = new Composer()
 baseEmpty.on ('text', async (ctx)=>{

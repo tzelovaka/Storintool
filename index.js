@@ -9,13 +9,12 @@ const safety = require ('./safety');
 const {DataTypes} = require('sequelize');
 const sequelize = require('./db');
 const { Op } = require("sequelize");
-const { webApp } = require('telegraf/typings/button');
 require ('dotenv').config();
 const PORT = process.env.PORT || 3000;
 const { BOT_TOKEN} = process.env;
 const bot = new Telegraf(BOT_TOKEN);
 const flagBtn = new CallbackData('flagBtn', ['number', 'action']);
-const webAppUrl = 'https://storinter.herokuapp.com/'
+
 
 if (BOT_TOKEN === undefined) {
   throw new Error('BOT_TOKEN must be provided!')
@@ -68,14 +67,19 @@ bot.start (async (ctx) =>{
 /simulate - симуляция истории;
 /edit - редактирование текста;
 /visualization - добавление картинок или эмодзи-кнопок;
+/scheme - схема создаваемой истории
 /delete - удаление истории, сюжетной ветви или картинок;
-/public - публикация истории.`, Markup.keyboard(
-  [
-    [Markup.urlButton('Схема', 'https://storinter.herokuapp.com/')]
-  ]
-))
+/public - публикация истории.`)
   }
   )
+
+  bot.command('scheme', (ctx) => {
+    ctx.reply('Hello', Markup.inlineKeyboard(
+      [
+      [Markup.button.callback('Смотреть...', 'https://storinter.herokuapp.com/')]
+    ]
+    ))
+  })
 
 const baseEmpty = new Composer()
 baseEmpty.on ('text', async (ctx)=>{

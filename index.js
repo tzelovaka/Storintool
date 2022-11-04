@@ -1,4 +1,5 @@
-const { Telegraf, Scenes, Composer, session, Markup, Extra} = require('telegraf');
+const { Telegraf, Scenes, Composer, session, Markup} = require('telegraf');
+const TelegramBot = require('node-telegram-bot-api');
 const { CallbackData } = require('@bot-base/callback-data');
 const storybl = require('./modebl');
 const storylin = require('./modelink');
@@ -15,7 +16,7 @@ const PORT = process.env.PORT || 3000;
 const { BOT_TOKEN} = process.env;
 const bot = new Telegraf(BOT_TOKEN);
 const flagBtn = new CallbackData('flagBtn', ['number', 'action']);
-
+const webAppUrl = 'https://storinter.herokuapp.com/'
 if (BOT_TOKEN === undefined) {
   throw new Error('BOT_TOKEN must be provided!')
 }
@@ -74,10 +75,13 @@ bot.start (async (ctx) =>{
   )
 
   bot.command('scheme', async (ctx) => {
-    await ctx.reply('Смотреть...',
-      Markup.inlineKeyboard([
-        Markup.urlButton('👆', 'https://storinter.herokuapp.com/')
-      ])
+    await ctx.reply('Смотреть...', {reply_markup: {
+      inline_keyboard:
+      [
+        [{text: '👆', web_app: {url: webAppUrl}}]
+      ]
+    }
+  }
     )
   })
 

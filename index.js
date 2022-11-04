@@ -9,6 +9,8 @@ const safety = require ('./safety');
 const {DataTypes} = require('sequelize');
 const sequelize = require('./db');
 const { Op } = require("sequelize");
+const markup = require('telegraf-sender/src/markup');
+const { webApp } = require('telegraf/typings/button');
 require ('dotenv').config();
 const PORT = process.env.PORT || 3000;
 const { BOT_TOKEN} = process.env;
@@ -68,7 +70,11 @@ bot.start (async (ctx) =>{
 /edit - редактирование текста;
 /visualization - добавление картинок или эмодзи-кнопок;
 /delete - удаление истории, сюжетной ветви или картинок;
-/public - публикация истории.`)
+/public - публикация истории.`, Markup.keyboard (
+  [
+  [(Markup.button.callback('Схема', 'https://storinter.herokuapp.com/'))]
+]
+))
   }
   )
 

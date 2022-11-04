@@ -70,11 +70,7 @@ bot.start (async (ctx) =>{
 /edit - редактирование текста;
 /visualization - добавление картинок или эмодзи-кнопок;
 /delete - удаление истории, сюжетной ветви или картинок;
-/public - публикация истории.`, Markup.keyboard (
-  [
-  [(Markup.button.callback('Схема', 'https://storinter.herokuapp.com/'))]
-]
-))
+/public - публикация истории.`)
   }
   )
 

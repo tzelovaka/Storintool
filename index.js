@@ -73,12 +73,12 @@ bot.start (async (ctx) =>{
   }
   )
 
-  bot.command('scheme', (ctx) => {
-    ctx.reply('Смотреть...', Extra.markup(
+  bot.command('scheme', async (ctx) => {
+    await ctx.reply('Смотреть...',
       Markup.inlineKeyboard([
         Markup.urlButton('👆', 'https://storinter.herokuapp.com/')
       ])
-    ))
+    )
   })
 
 const baseEmpty = new Composer()

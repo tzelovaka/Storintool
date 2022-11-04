@@ -68,13 +68,11 @@ bot.start (async (ctx) =>{
 /edit - редактирование текста;
 /visualization - добавление картинок или эмодзи-кнопок;
 /delete - удаление истории, сюжетной ветви или картинок;
-/public - публикация истории.`), {
-  reply_markup:{
-    keyboard:[
-      [{text: 'Схема', web_app: {url: webAppUrl}}]
-    ]
-  }
-}
+/public - публикация истории.`), Markup.keyboard(
+  [
+    ['Схема']
+  ]
+)
   }
   )
 

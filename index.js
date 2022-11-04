@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 const { BOT_TOKEN} = process.env;
 const bot = new Telegraf(BOT_TOKEN);
 const flagBtn = new CallbackData('flagBtn', ['number', 'action']);
-const web_link = 'https://storinter.herokuapp.com/'
+const web_link = 'storinter.herokuapp.com'
 
 if (BOT_TOKEN === undefined) {
   throw new Error('BOT_TOKEN must be provided!')
@@ -77,9 +77,9 @@ bot.start (async (ctx) =>{
       await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
     }*/
       await ctx.reply(
-      'Привет', {
+      'Схема', {
         reply_markup:{
-          keyboard:[[{text: "Тык", web_app: {url: web_link}}]],
+          keyboard:[[{text: "Схема", web_app: {url: web_link}}]],
         },
       })
     }

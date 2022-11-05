@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 3000;
 const { BOT_TOKEN} = process.env;
 const bot = new Telegraf(BOT_TOKEN);
 const flagBtn = new CallbackData('flagBtn', ['number', 'action']);
+const web_link = process.env.WEBAPP
 
 if (BOT_TOKEN === undefined) {
   throw new Error('BOT_TOKEN must be provided!')
@@ -70,6 +71,19 @@ bot.start (async (ctx) =>{
 /public - публикация истории.`)
   }
   )
+
+  bot.help (async (ctx) =>{
+    /*if (ctx.message.from.is_bot = true){
+      await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
+    }*/
+      await ctx.reply(
+      'Схема', {
+        reply_markup:{
+          keyboard:[[{text: "Схема", web_app: {url: web_link}}]],
+        },
+      })
+    }
+    )
 
 const baseEmpty = new Composer()
 baseEmpty.on ('text', async (ctx)=>{
@@ -164,7 +178,7 @@ const menuCreate = new Scenes.WizardScene('sceneCreate', baseEmpty, storyName, s
 const stage = new Scenes.Stage ([menuCreate])
 bot.use(session())
 bot.use(stage.middleware())
-bot.hears ('Создать🛠', async (ctx) => ctx.scene.enter('sceneCreate'))
+bot.command ('create', async (ctx) => ctx.scene.enter('sceneCreate'))
 
 
 

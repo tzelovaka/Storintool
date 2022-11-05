@@ -523,7 +523,7 @@ const deleteScene = new Scenes.BaseScene('delete')
 deleteScene.enter(async (ctx) => {
   try{
   ctx.session.myData = {};
-  ctx.reply('Выберите вид удаляемого элемента:', Markup.inlineKeyboard(
+  ctx.reply('Что требуется удалить?', Markup.inlineKeyboard(
     [
     [Markup.button.callback('История', 'Story')], 
     [Markup.button.callback('Сюжетная ветка', 'Branch')],
@@ -807,7 +807,7 @@ const editChoice = new Composer()
 editChoice.on ('text', async (ctx)=>{
   try{
   ctx.wizard.state.data = {};
-  await ctx.reply('Выберите вид редактируемого элемента:', Markup.inlineKeyboard(
+  await ctx.reply('Что требуется отредактировать?', Markup.inlineKeyboard(
     [
     [Markup.button.callback('Название', editBtn.create({
       number: '1',
@@ -1069,7 +1069,7 @@ const sceneVisualization = new Composer()
 sceneVisualization.on ('text', async (ctx)=>{
 ctx.wizard.state.data = {};
 try{
-  await ctx.reply('Выберите, что требуется добавить:', Markup.inlineKeyboard(
+  await ctx.reply('Что требуется добавить?', Markup.inlineKeyboard(
     [
     [Markup.button.callback('Картинки к блокам', flagBtn.create({
       number: '1',

@@ -60,14 +60,12 @@ bot.start (async (ctx) =>{
     await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
   }*/
     await ctx.reply(
-    `/create - создание истории;
-/addlink - добавление очередной ссылки;
-/addblock - добавление очередного блока;
-/simulate - симуляция истории;
-/edit - редактирование текста;
-/visualization - добавление картинок или эмодзи-кнопок;
-/delete - удаление истории, сюжетной ветви или картинок;
-/public - публикация истории.`)
+    `Меню открыто.`, Markup.keyboard([
+      ['Создать историю🛠', 'Играть🎲'],
+      ['Добавить ссылку↔', 'Добавить блок🟥'],
+      ['Редактирование⚙','Визуализация📽'],
+      ['Удалить🗑', 'Опубликовать📫']
+    ]))
   }
   )
 
@@ -164,7 +162,7 @@ const menuCreate = new Scenes.WizardScene('sceneCreate', baseEmpty, storyName, s
 const stage = new Scenes.Stage ([menuCreate])
 bot.use(session())
 bot.use(stage.middleware())
-bot.hears ('Создать🛠', async (ctx) => ctx.scene.enter('sceneCreate'))
+bot.hears ('Создать историю🛠', async (ctx) => ctx.scene.enter('sceneCreate'))
 
 
 
@@ -274,7 +272,7 @@ const menuLink = new Scenes.WizardScene('sceneLink', blockEmpty, blockChoice, bl
 const stagee = new Scenes.Stage ([menuLink])
 bot.use(session())
 bot.use(stagee.middleware())
-bot.command ('addlink', async (ctx) => ctx.scene.enter('sceneLink'))
+bot.hears ('Добавить ссылку↔', async (ctx) => ctx.scene.enter('sceneLink'))
 
 
 
@@ -415,7 +413,7 @@ const menuBlock = new Scenes.WizardScene('sceneBlock', linkEmpty, linkChoice, li
 const stager = new Scenes.Stage ([menuBlock])
 bot.use(session())
 bot.use(stager.middleware())
-bot.command ('addblock', async (ctx) => ctx.scene.enter('sceneBlock'))
+bot.hears ('Добавить блок🟥', async (ctx) => ctx.scene.enter('sceneBlock'))
 
 
 
@@ -513,7 +511,7 @@ const playmenuScene = new Scenes.WizardScene('playScene', playScene, playMech)
 const staget = new Scenes.Stage([playmenuScene])
 bot.use(session())
 bot.use(staget.middleware())
-bot.command('simulate', async (ctx) => ctx.scene.enter('playScene'))
+bot.hears('Играть🎲', async (ctx) => ctx.scene.enter('playScene'))
 
 
 
@@ -797,7 +795,7 @@ return ctx.scene.leave()});
 const staged = new Scenes.Stage([deleteScene])
 bot.use(session())
 bot.use(staged.middleware())
-bot.command('delete', (ctx) => ctx.scene.enter('delete'))
+bot.hears('Удалить🗑', (ctx) => ctx.scene.enter('delete'))
 
 
 
@@ -1057,7 +1055,7 @@ const menuEdit = new Scenes.WizardScene('editScene', editChoice, editChoiceTrue,
 const stageu = new Scenes.Stage ([menuEdit])
 bot.use(session())
 bot.use(stageu.middleware())
-bot.command ('edit', async (ctx) => ctx.scene.enter('editScene'))
+bot.hears ('Редактирование⚙', async (ctx) => ctx.scene.enter('editScene'))
 
 
 
@@ -1331,12 +1329,12 @@ const menuVisualization = new Scenes.WizardScene('sceneVisualization', sceneVisu
 const stagev = new Scenes.Stage ([menuVisualization])
 bot.use(session())
 bot.use(stagev.middleware())
-bot.command ('visualization', async (ctx) => ctx.scene.enter('sceneVisualization'))
+bot.hears ('Визуализация📽', async (ctx) => ctx.scene.enter('sceneVisualization'))
 
 
 
 
-bot.command ('public', async (ctx) => {
+bot.hears ('Опубликовать📫', async (ctx) => {
   try{
   const {count, rows} = await storylin.findAndCountAll({where:{
     authId: ctx.message.from.id,

@@ -13,14 +13,8 @@ require ('dotenv').config();
 const PORT = process.env.PORT || 3000;
 const { BOT_TOKEN} = process.env;
 const bot = new Telegraf(BOT_TOKEN, {
-  polling: {
-    interval: 300,
-    autoStart: true,
-    params:{
-      timeout: 10
-    }
-  }
-});
+  polling: true
+  });
 const flagBtn = new CallbackData('flagBtn', ['number', 'action']);
 
 if (BOT_TOKEN === undefined) {

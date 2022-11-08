@@ -66,8 +66,7 @@ bot.start (async (ctx) =>{
   /*if (ctx.message.from.is_bot = true){
     await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
   }Играть 🎲*/
-    await ctx.replyWithHTML(
-    `/start <i>- главное меню, помощь с пояснениями;</i>
+    await ctx.replyWithHTML(`/start <i>- главное меню, помощь с пояснениями;</i>
 /create <i>- создание истории;</i>
 /addlink <i>- добавление очередной ссылки;</i>
 /addblock <i>- добавление очередного блока;</i>

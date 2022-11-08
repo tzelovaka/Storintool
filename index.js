@@ -66,8 +66,8 @@ bot.start (async (ctx) =>{
   /*if (ctx.message.from.is_bot = true){
     await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
   }Играть 🎲*/
-    await ctx.replyWithPhoto(
-    './startpic.png', Markup.keyboard([
+    await ctx.replyWithHTML(
+    `(͡° ͜ʖ ͡°)`, Markup.keyboard([
       ['/start', '/help'],
       ['/create', '/play'],
       ['/addlink', '/addblock'],

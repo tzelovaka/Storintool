@@ -65,10 +65,10 @@ bot.on('callback_query', async (ctx, next) => {
 bot.start (async (ctx) =>{
   /*if (ctx.message.from.is_bot = true){
     await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
-  }*/
+  }Играть 🎲*/
     await ctx.reply(
     `Меню открыто.`, Markup.keyboard([
-      ['Создать 🛠', 'Играть 🎲'],
+      ['Создать 🛠', '/play'],
       ['Добавить ссылку 🔹', 'Добавить блок 🟥'],
       ['Редактирование ⚙','Визуализация 📽'],
       ['Удалить 🗑', 'Опубликовать 📫']
@@ -518,7 +518,7 @@ const playmenuScene = new Scenes.WizardScene('playScene', playScene, playMech)
 const staget = new Scenes.Stage([playmenuScene])
 bot.use(session())
 bot.use(staget.middleware())
-bot.hears('Играть 🎲', async (ctx) => ctx.scene.enter('playScene'))
+bot.command('play', async (ctx) => ctx.scene.enter('playScene'))
 
 
 

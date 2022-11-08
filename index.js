@@ -67,7 +67,7 @@ bot.start (async (ctx) =>{
     await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
   }Играть 🎲*/
     await ctx.replyWithPhoto(
-    'startpic.png', Markup.keyboard([
+    'https://joli-chocolatine-68406.herokuapp.com/startpic.png', Markup.keyboard([
       ['/start', '/help'],
       ['/create', '/play'],
       ['/addlink', '/addblock'],

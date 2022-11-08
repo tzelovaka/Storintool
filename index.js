@@ -66,9 +66,9 @@ bot.start (async (ctx) =>{
   /*if (ctx.message.from.is_bot = true){
     await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
   }Играть 🎲*/
-    await ctx.reply(
-    `Меню открыто.`, Markup.keyboard([
-      ['/help'],
+    await ctx.replyWithPhoto(
+    'startpic.png', Markup.keyboard([
+      ['/start', '/help'],
       ['/create', '/play'],
       ['/addlink', '/addblock'],
       ['/edit','/visualization'],
@@ -76,6 +76,19 @@ bot.start (async (ctx) =>{
     ]))
   }
   )
+
+  bot.help (async (ctx) =>{
+    await ctx.replyWithHTML(`/start <i>- главное меню</i>;
+/help <i>- помощь и пояснения</i>;
+/create <i>- создание истории</i>;
+/addlink <i>- добавление очередной ссылки</i>;
+/addblock <i>- добавление очередного блока</i>;
+/play <i>- симуляция истории</i>;
+/edit <i>- редактирование текста</i>;
+/visualization <i>- добавление картинок или эмодзи-кнопок</i>;
+/delete <i>- удаление истории, сюжетной ветви или картинок</i>;
+/public <i>- публикация истории.</i>`)
+  })
 
 const baseEmpty = new Composer()
 baseEmpty.on ('text', async (ctx)=>{

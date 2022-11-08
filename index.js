@@ -3,13 +3,15 @@ const { CallbackData } = require('@bot-base/callback-data');
 const storybl = require('./modebl');
 const storylin = require('./modelink');
 const story = require ('./story');
+const like = require ('./like');
 const user = require ('./user');
 const safety = require ('./safety');
+const {DataTypes} = require('sequelize');
 const sequelize = require('./db');
 const { Op } = require("sequelize");
 require ('dotenv').config();
-const PORT = process.env.PORT || 5000;
-const { BOT_TOKEN, URL } = process.env;
+const PORT = process.env.PORT || 3000;
+const { BOT_TOKEN} = process.env;
 const bot = new Telegraf(BOT_TOKEN, {
   polling: true,
   autoStart: true,
@@ -1410,6 +1412,8 @@ bot.command ('public', async (ctx) => {
     return ctx.scene.leave()
   }
 })
+
+
 
 
 bot.launch()

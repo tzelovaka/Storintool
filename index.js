@@ -10,8 +10,8 @@ const {DataTypes} = require('sequelize');
 const sequelize = require('./db');
 const { Op } = require("sequelize");
 require ('dotenv').config();
-const PORT = process.env.PORT || 3000;
-const { BOT_TOKEN} = process.env;
+const PORT = process.env.PORT || 5000;
+const { BOT_TOKEN, URL } = process.env;
 const bot = new Telegraf(BOT_TOKEN, {
   polling: true,
   autoStart: true,
@@ -1415,8 +1415,10 @@ bot.command ('public', async (ctx) => {
 
 
 
+bot.telegram.setWebhook(`${URL}/bot${BOT_TOKEN}`);
+bot.startWebhook(`${URL}/bot${BOT_TOKEN}`, null, PORT);
+console.log('Started with webhook!');
+//bot.launch()
 
-bot.launch()
-
-process.once('SIGINT', () => bot.stop('SIGINT'))
-process.once('SIGTERM', () => bot.stop('SIGTERM'))
+//process.once('SIGINT', () => bot.stop('SIGINT'))
+//process.once('SIGTERM', () => bot.stop('SIGTERM'))

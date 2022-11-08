@@ -1414,8 +1414,8 @@ bot.command ('public', async (ctx) => {
 })
 
 
-bot.telegram.setWebhook(`${URL}/bot${BOT_TOKEN}`)
-	bot.startWebhook(`/bot${BOT_TOKEN}`, null, PORT)
+bot.telegram.setWebhook(`${URL}/index.js`)
+	bot.startWebhook(`/index.js`, null, PORT)
 	console.log('Started with webhook')
 //bot.launch()
 

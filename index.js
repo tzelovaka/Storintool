@@ -3,10 +3,8 @@ const { CallbackData } = require('@bot-base/callback-data');
 const storybl = require('./modebl');
 const storylin = require('./modelink');
 const story = require ('./story');
-const like = require ('./like');
 const user = require ('./user');
 const safety = require ('./safety');
-const {DataTypes} = require('sequelize');
 const sequelize = require('./db');
 const { Op } = require("sequelize");
 require ('dotenv').config();
@@ -1414,10 +1412,7 @@ bot.command ('public', async (ctx) => {
 })
 
 
-bot.telegram.setWebhook(`${URL}/index.js`)
-	bot.startWebhook(`/index.js`, null, PORT)
-	console.log('Started with webhook')
-//bot.launch()
+bot.launch()
 
-//process.once('SIGINT', () => bot.stop('SIGINT'))
-//process.once('SIGTERM', () => bot.stop('SIGTERM'))
+process.once('SIGINT', () => bot.stop('SIGINT'))
+process.once('SIGTERM', () => bot.stop('SIGTERM'))

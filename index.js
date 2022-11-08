@@ -67,7 +67,7 @@ bot.start (async (ctx) =>{
     await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
   }Играть 🎲*/
     await ctx.replyWithPhoto(
-    'https://avatars.dzeninfra.ru/get-zen_doc/5232843/pub_634567ae0321fe2264c3a162_63456861e2038e4548e8a847/scale_1200', Markup.keyboard([
+    './startpic.png', Markup.keyboard([
       ['/start', '/help'],
       ['/create', '/play'],
       ['/addlink', '/addblock'],

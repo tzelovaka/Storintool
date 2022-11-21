@@ -200,7 +200,7 @@ try{
     return ctx.scene.leave()
   }
   let x = count - 1;
-  await ctx.reply ('Выберите блок, который будет предлагать ссылку.');
+  await ctx.replyWithPhoto ({ url: 'lb.jpg' }, { caption: 'Выберите блок, который будет предлагать ссылку.'});
   for (let i=0; i<=x; i++){
     await ctx.reply(`${rows[i].bl}`, Markup.inlineKeyboard(
       [

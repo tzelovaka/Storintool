@@ -201,8 +201,7 @@ try{
   }
   let x = count - 1;
   let p = './lb.jpg';
-  let t = 'Выберите блок, который будет предлагать читателю добавляемую ссылку:'
-  await ctx.replyWithPhoto({ url: `${p}`}, {caption: `${t}`});
+  await ctx.replyWithPhoto({ url: 'https://joli-chocolatine-68406.herokuapp.com/lb.jpg'}, {caption: 'Выберите блок, который будет предлагать читателю добавляемую ссылку:'});
   for (let i=0; i<=x; i++){
     await ctx.reply(`${rows[i].bl}`, Markup.inlineKeyboard(
       [

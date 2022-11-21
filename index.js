@@ -200,8 +200,7 @@ try{
     return ctx.scene.leave()
   }
   let x = count - 1;
-  let p = './lb.jpg';
-  await ctx.replyWithPhoto({ url: 'https://joli-chocolatine-68406.herokuapp.com/lb.jpg'}, {caption: 'Выберите блок, который будет предлагать читателю добавляемую ссылку:'});
+  await ctx.reply ('Выберите блок, который будет предлагать ссылку.');
   for (let i=0; i<=x; i++){
     await ctx.reply(`${rows[i].bl}`, Markup.inlineKeyboard(
       [

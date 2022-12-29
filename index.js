@@ -63,9 +63,6 @@ bot.on('callback_query', async (ctx, next) => {
 })
 
 bot.start (async (ctx) =>{
-  /*if (ctx.message.from.is_bot = true){
-    await ctx.telegram.kickChatMember(ctx.chat.id, ctx.message.from.id)
-  }Играть 🎲*/
     await ctx.replyWithHTML(`/start <i>- главное меню, помощь с пояснениями;</i>
 /create <i>- создание истории;</i>
 /addlink <i>- добавление очередной ссылки;</i>
@@ -132,29 +129,18 @@ const baseSave = new Composer()
 baseSave.on ('text', async (ctx)=>{
   ctx.wizard.state.data.baseSave = ctx.message.text;
 
-  /*const t = await sequelize.transaction();*/
   try{
-  /*const res = await sequelize.transaction(async (t) => {*/
     const query = await story.create({
     name: `${ctx.wizard.state.data.storyName}`,
     desc: `${ctx.wizard.state.data.storyDesc}`,
     authId: ctx.message.from.id,
     release: false
-  }/*, { transaction: t }*/);/*
-})
-} catch (e) {
-  await t.rollback();
-  await ctx.reply ('⚠Ошибка!');
-  return ctx.scene.leave()
-}*/
-/*const f = await sequelize.transaction();
-try{*/
+  });
+
     const { count, rows } = await story.findAndCountAll({where: {
       authId: ctx.message.from.id,
       release: false}});
     let c = count - 1;
-    //const t = await sequelize.transaction();
-    //const result = await sequelize.transaction(async (f) => {
     const quer = await storybl.create({
     linid: 0,
     pic: null,
@@ -162,10 +148,8 @@ try{*/
     authId: ctx.message.from.id,
     storyId: rows[c].id,
     release: false
-  }/*, { transaction: f }*/);
-//})
+  });
 }catch(e){
-  //await f.rollback();
   await ctx.reply ('⚠Ошибка!');
   return ctx.scene.leave()
 }
@@ -630,10 +614,6 @@ deleteScene.action(deletelinkBtn.filter({action: 'deletelink'}), async (ctx) => 
   const { number, smile, action } = deletelinkBtn.parse(ctx.callbackQuery.data);
   console.log(number);
   ctx.session.myData.preferenceType = number;
-  /*const row = await story.findOne({where: {
-    authId: ctx.callbackQuery.from.id,
-    release: false,
-  }})*/
   const row = await storylin.findOne({where:{
     id: number,
     smile: smile,
@@ -649,7 +629,6 @@ deleteScene.action(deletelinkBtn.filter({action: 'deletelink'}), async (ctx) => 
     id: ctx.session.myData.preferenceType,
     authId: ctx.callbackQuery.from.id,
     release: false,
-    //storyId: row.id
 }
 })
   await storybl.destroy({ 
@@ -657,7 +636,6 @@ deleteScene.action(deletelinkBtn.filter({action: 'deletelink'}), async (ctx) => 
     linid: ctx.session.myData.preferenceType,
     authId: ctx.callbackQuery.from.id,
     release: false,
-    //storyId: row.id
 }
 });
 
@@ -666,7 +644,6 @@ for (; ;){
     authId: ctx.callbackQuery.from.id,
     release: false,
     storyblId: null,
-    //storyId: row.id
   }})
   if (count<1){
     break
